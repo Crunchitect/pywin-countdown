@@ -82,7 +82,7 @@ def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{secon
 
 t = 0
 timeend = datetime(2025, 1, 1, 0, 0, 0)
-display_time = format_timedelta(timeend - datetime.now(), "{days}:{hours2}:{minutes2}:{seconds2}")
+display_time = format_timedelta(timeend - datetime.now(), "{days_total}:{hours2}:{minutes2}:{seconds2}")
 old_display_time = display_time
 flags = [[0, False, 0]] * len(display_time)
 while True:
@@ -94,7 +94,7 @@ while True:
     dt = clock.tick(FPS) / 1000
     t += dt
     
-    display_time = format_timedelta(timeend - datetime.now(), "{days}:{hours2}:{minutes2}:{seconds2}")
+    display_time = format_timedelta(timeend - datetime.now(), "{days_total}:{hours2}:{minutes2}:{seconds2}")
     screen.fill(FUCHSIA)
     width = 120 * len(display_time)
     # if display_time != old_display_time:
@@ -108,19 +108,19 @@ while True:
         if tick:
             if time < 0:
                 flags[i] = [0, False, 0]
-                blit_rotate(screen, nums[display_time[i]], ((i * 120) + screen.get_width() // 4, screen.get_height() // 2), 0)
+                blit_rotate(screen, nums[display_time[i]], ((i * 120 - width // 2 + 60) + screen.get_width() // 2, screen.get_height() // 2), 0)
                 continue
             char, old_char = chars
-            blit_rotate(screen, nums[char], ((i * 120) + screen.get_width() // 4, screen.get_height() // 2), 0)
+            blit_rotate(screen, nums[char], ((i * 120 - width // 2 + 60) + screen.get_width() // 2, screen.get_height() // 2), 0)
             blit_rotate(screen, nums[old_char], *get_transform(
                     0.8 - time + (i * 0.01),
-                    ((i * 120) + screen.get_width() // 4, screen.get_height() // 2),
+                    ((i * 120 - width // 2 + 60) + screen.get_width() // 2, screen.get_height() // 2),
                     direc
                 )
             )
             flags[i][0] -= dt
         else:
-            blit_rotate(screen, nums[display_time[i]], ((i * 120) + screen.get_width() // 4, screen.get_height() // 2), 0)
+            blit_rotate(screen, nums[display_time[i]], ((i * 120 - width // 2 + 60) + screen.get_width() // 2, screen.get_height() // 2), 0)
         
     pygame.display.flip()
     old_display_time = display_time
