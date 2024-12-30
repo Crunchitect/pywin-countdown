@@ -1,0 +1,4 @@
+pygame-ce
+pyscreenshot
+pillow
+pywin32
