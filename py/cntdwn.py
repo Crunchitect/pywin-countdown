@@ -81,7 +81,8 @@ def format_timedelta(value, time_format="{days} days, {hours2}:{minutes2}:{secon
     })
 
 t = 0
-display_time = format_timedelta(datetime(2025, 1, 1, 0, 0, 0) - datetime.now(), "{days}:{hours2}:{minutes2}:{seconds2}")
+timeend = datetime(2025, 1, 1, 0, 0, 0)
+display_time = format_timedelta(timeend - datetime.now(), "{days}:{hours2}:{minutes2}:{seconds2}")
 old_display_time = display_time
 flags = [[0, False, 0]] * len(display_time)
 while True:
@@ -93,7 +94,7 @@ while True:
     dt = clock.tick(FPS) / 1000
     t += dt
     
-    display_time = format_timedelta(datetime(2025, 1, 1, 0, 0, 0) - datetime.now(), "{days}:{hours2}:{minutes2}:{seconds2}")
+    display_time = format_timedelta(timeend - datetime.now(), "{days}:{hours2}:{minutes2}:{seconds2}")
     screen.fill(FUCHSIA)
     width = 120 * len(display_time)
     # if display_time != old_display_time:
